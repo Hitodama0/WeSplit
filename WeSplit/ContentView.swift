@@ -7,6 +7,22 @@
 
 import SwiftUI
 
+///
+struct Title: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+        .font(.largeTitle)
+        .foregroundColor(.blue)
+    }
+}
+
+extension View {
+    func titleStyle() -> some View {
+        modifier(Title())
+    }
+}
+//Just created and not used
+///
 struct ContentView: View {
     @State private var checkAmount = 0.0
     @State private var numberOfPeople = 2
@@ -31,7 +47,7 @@ struct ContentView: View {
         let total = totalAmount
         let peopleCount = Double(numberOfPeople + 2)
         //let tipSelection = Double(tipPercentage)
-
+        
         //let tipValue = checkAmount / 100 * tipSelection
         //let grandTotal = checkAmount + tipValue
         let amountPerPerson = total / peopleCount
@@ -40,7 +56,7 @@ struct ContentView: View {
         return amountPerPerson
     }
     
-   
+    
     var body: some View {
         NavigationView{
             Form {
@@ -67,10 +83,10 @@ struct ContentView: View {
                 
                 Section {
                     Text(totalAmount, format: dollarFormatter)
+                        .foregroundColor(tipPercentage == 0 ? .red : .green)
                 } header: {
                     Text("Total amount")
                 }
-                
                 Section {
                     Text(totalPerPerson, format: dollarFormatter)
                 } header: {
